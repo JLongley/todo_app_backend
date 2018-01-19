@@ -6,15 +6,19 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2"
+    "compression": "^1.7.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
-    "nodemon": "^1.14.11"
+    "nodemon": "^1.14.11",
+    "standard": "^10.0.3"
   }
 }
