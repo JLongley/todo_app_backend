@@ -1,5 +1,7 @@
 'use strict'
 
+require('./db')
+
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const cors = require('cors')
@@ -16,14 +18,11 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 app.use(compression())
 app.use(morgan('common'))
 
-require('./db')
-
-const routes = require('./routes/routes')
-
-app.get('/ping', (req, res) => {
+app.get('/', (req, res) => {
   res.send('ok')
 })
 
+const routes = require('./routes/routes')
 app.use('/api', routes)
 
 app.listen(3001, () => { console.log(`Listening on port ${PORT}`) })
