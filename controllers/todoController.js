@@ -3,32 +3,18 @@
 const Todo = require('../models/todo')
 
 const createTodo = function (req, res, next) {
-  if (!req.body.done || !req.body.value) {
-    const error = {
-      status: 400,
-      message: `Missing 'done' or 'value' parameter`
-    }
-    console.error(`ERROR: ${error.message}`)
-    return res.status(400).send(error)
-  }
-
   Todo.create({
     value: req.body.value,
     done: req.body.done
   }, (err, todo) => {
-    if (err) {
-      console.error(`MONGOOSE ERROR: ${err.message}`)
-      res.status(400).send(err)
-    }
+    if (err) { return next(err) }
     res.send(todo)
   })
 }
 
 const deleteTodo = function (req, res, next) {
   Todo.findByIdAndRemove(req.params.id, (err, todo) => {
-    if (err) {
-      return res.status(404).send('Todo not found', err)
-    }
+    if (err) { return next(err) }
     res.status(204).send()
   })
 }
@@ -50,15 +36,6 @@ const readTodos = function (req, res, next) {
 }
 
 const updateTodo = function (req, res, next) {
-  if (!req.body.done || !req.body.value) {
-    const error = {
-      status: 400,
-      message: `Missing 'done' or 'value' parameter`
-    }
-    console.error(`ERROR: ${error.message}`)
-    return res.status(400).send(error)
-  }
-
   Todo.findByIdAndUpdate(req.params.id, {
     value: req.body.value,
     done: req.body.done
